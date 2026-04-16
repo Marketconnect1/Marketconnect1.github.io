@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Future Business Hub</title>
+    <style>
+        /* FUTURISTIC CSS & ANIMATIONS */
+        :root {
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --dark-bg: #050509;
+            --glass-bg: rgba(20, 20, 30, 0.7);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050509 100%);
+            color: white;
+            font-family: 'Courier New', Courier, monospace; /* Tech feel */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px var(--neon-blue); }
+            50% { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
+            100% { box-shadow: 0 0 5px var(--neon-blue); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Layout */
+        header {
+            text-align: center;
+            padding: 20px;
+            animation: fadeInDown 1s ease-out;
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 20px;
+        }
+
+        /* Glassmorphism Panels */
+        .panel {
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            animation: slideIn 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .panel:nth-child(1) { animation-delay: 0.2s; }
+        .panel:nth-child(2) { animation-delay: 0.4s; }
+        .panel:nth-child(3) { animation-delay: 0.6s; }
+
+        /* Stats Dashboard */
+        .stats-grid {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-purple);
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--neon-purple);
+            text-shadow: 0 0 8px var(--neon-purple);
+        }
+
+        /* Inputs & Buttons */
+        input, textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--neon-blue);
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: transparent;
+            color: var(--neon-blue);
+            border: 2px solid var(--neon-blue);
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: pulseGlow 3s infinite;
+        }
+
+        button:active {
+            background: var(--neon-blue);
+            color: black;
+        }
+
+        /* Feed */
+        .post {
+            background: rgba(0, 0, 0, 0.8);
+            border-left: 4px solid var(--neon-blue);
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            animation: fadeInDown 0.5s ease-out;
+        }
+
+        .post-author {
+            color: var(--neon-purple);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>NEXUS_HUB</h1>
+        <p style="color: #888; font-size: 12px;">Global Promotion Network</p>
+    </header>
+
+    <div class="container">
+        
+        <!-- DASHBOARD STATS -->
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">System Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div style="font-size: 10px; color: #888;">LIVE TRAFFIC</div>
+                    <div class="stat-number" id="traffic-counter">8,402</div>
+                </div>
+                <div class="stat-box">
+                    <div style="font-size: 10px; color: #888;">ACTIVE USERS</div>
+                    <div class="stat-number" style="color: var(--neon-blue);">342</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POST AN AD SECTION -->
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">Broadcast Your Business</h2>
+            <input type="text" id="biz-name" placeholder="Business Name...">
+            <textarea id="biz-desc" rows="3" placeholder="What do you do? Drop your links..."></textarea>
+            <button onclick="postAd()">Transmit to Feed</button>
+        </div>
+
+        <!-- THE FEED -->
+        <div class="panel" id="feed-panel">
+            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">Live Promotions & Chat</h2>
+            
+            <div class="post">
+                <div class="post-author">@CyberDesigns</div>
+                <div>We build futuristic logos for startups! DM me to connect. 🚀</div>
+            </div>
+            
+            <div class="post" style="border-color: var(--neon-purple);">
+                <div class="post-author" style="color: var(--neon-blue);">@TechTrader</div>
+                <div>Looking to partner with dropshippers. Hit the chat module!</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // 1. Simulate Live Traffic going up
+        let traffic = 8402;
+        setInterval(() => {
+            traffic += Math.floor(Math.random() * 3);
+            document.getElementById('traffic-counter').innerText = traffic.toLocaleString();
+        }, 3000); // Updates every 3 seconds
+
+        // 2. Make the "Post Ad" button actually work visually
+        function postAd() {
+            let name = document.getElementById('biz-name').value;
+            let desc = document.getElementById('biz-desc').value;
+
+            if (name === "" || desc === "") {
+                alert("SYSTEM ERROR: Please fill in both fields.");
+                return;
+            }
+
+            // Create the new post HTML
+            let newPost = document.createElement('div');
+            newPost.className = 'post';
+            newPost.innerHTML = `
+                <div class="post-author">@${name}</div>
+                <div>${desc}</div>
+            `;
+
+            // Add it to the top of the feed
+            let feed = document.getElementById('feed-panel');
+            // Insert after the h2 title
+            feed.insertBefore(newPost, feed.children[1]); 
+
+            // Clear the input boxes
+            document.getElementById('biz-name').value = '';
+            document.getElementById('biz-desc').value = '';
+        }
+    </script>
+</body>
+  </html>
