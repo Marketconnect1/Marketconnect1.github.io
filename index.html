@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus | Future Business Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Market Connect</title>
     <style>
-        /* FUTURISTIC CSS & ANIMATIONS */
+        /* FUTURISTIC CSS */
         :root {
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
@@ -17,93 +17,60 @@
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050509 100%);
             color: white;
-            font-family: 'Courier New', Courier, monospace; /* Tech feel */
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            padding-bottom: 80px; /* Space for bottom nav */
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 5px var(--neon-blue); }
-            50% { box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
-            100% { box-shadow: 0 0 5px var(--neon-blue); }
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Layout */
         header {
             text-align: center;
-            padding: 20px;
-            animation: fadeInDown 1s ease-out;
+            padding: 15px;
             border-bottom: 1px solid var(--neon-blue);
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 9, 0.9);
+            z-index: 100;
+            backdrop-filter: blur(5px);
         }
 
         h1 {
             margin: 0;
-            font-size: 28px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
+            font-size: 24px;
+            letter-spacing: 3px;
             color: var(--neon-blue);
             text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        .container {
-            display: flex;
-            flex-direction: column;
+        /* PAGE SECTIONS */
+        .page {
+            display: none; /* Hides all pages by default */
             padding: 15px;
+            animation: fadeIn 0.3s ease-in-out;
             gap: 20px;
+            flex-direction: column;
         }
 
-        /* Glassmorphism Panels */
+        .active-page {
+            display: flex; /* Shows the active page */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Panels & Inputs */
         .panel {
             background: var(--glass-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
             backdrop-filter: blur(10px);
-            animation: slideIn 1s ease-out forwards;
-            opacity: 0;
         }
 
-        .panel:nth-child(1) { animation-delay: 0.2s; }
-        .panel:nth-child(2) { animation-delay: 0.4s; }
-        .panel:nth-child(3) { animation-delay: 0.6s; }
-
-        /* Stats Dashboard */
-        .stats-grid {
-            display: flex;
-            justify-content: space-between;
-            text-align: center;
-        }
-
-        .stat-box {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 3px solid var(--neon-purple);
-            flex: 1;
-            margin: 0 5px;
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--neon-purple);
-            text-shadow: 0 0 8px var(--neon-purple);
-        }
-
-        /* Inputs & Buttons */
         input, textarea {
             width: 100%;
             background: rgba(0, 0, 0, 0.6);
@@ -113,15 +80,9 @@
             margin-top: 10px;
             border-radius: 5px;
             box-sizing: border-box;
-            font-family: inherit;
         }
 
-        input:focus, textarea:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--neon-blue);
-        }
-
-        button {
+        button.action-btn {
             width: 100%;
             padding: 12px;
             margin-top: 15px;
@@ -130,93 +91,178 @@
             border: 2px solid var(--neon-blue);
             border-radius: 5px;
             font-weight: bold;
-            text-transform: uppercase;
             cursor: pointer;
-            transition: 0.3s;
-            animation: pulseGlow 3s infinite;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
         }
 
-        button:active {
-            background: var(--neon-blue);
-            color: black;
-        }
-
-        /* Feed */
         .post {
             background: rgba(0, 0, 0, 0.8);
             border-left: 4px solid var(--neon-blue);
             padding: 15px;
             margin-top: 15px;
             border-radius: 5px;
-            animation: fadeInDown 0.5s ease-out;
         }
 
-        .post-author {
+        /* BOTTOM NAVIGATION BAR */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(10, 10, 15, 0.95);
+            border-top: 1px solid var(--neon-purple);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -5px 20px rgba(188, 19, 254, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            color: #888;
+            text-align: center;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: 0.3s;
+        }
+
+        .nav-item.active {
             color: var(--neon-purple);
-            font-weight: bold;
-            margin-bottom: 5px;
+            text-shadow: 0 0 10px var(--neon-purple);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        /* Grid for Marketplace */
+        .market-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .market-category {
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--neon-purple);
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 10px;
+            color: var(--neon-purple);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>NEXUS_HUB</h1>
-        <p style="color: #888; font-size: 12px;">Global Promotion Network</p>
+        <h1>MARKET CONNECT</h1>
     </header>
 
-    <div class="container">
-        
-        <!-- DASHBOARD STATS -->
+    <!-- PAGE 1: FEED (Home) -->
+    <div id="feed" class="page active-page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">System Dashboard</h2>
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div style="font-size: 10px; color: #888;">LIVE TRAFFIC</div>
-                    <div class="stat-number" id="traffic-counter">8,402</div>
-                </div>
-                <div class="stat-box">
-                    <div style="font-size: 10px; color: #888;">ACTIVE USERS</div>
-                    <div class="stat-number" style="color: var(--neon-blue);">342</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- POST AN AD SECTION -->
-        <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">Broadcast Your Business</h2>
+            <h2 style="margin-top: 0; font-size: 18px;">Broadcast Your Business</h2>
             <input type="text" id="biz-name" placeholder="Business Name...">
-            <textarea id="biz-desc" rows="3" placeholder="What do you do? Drop your links..."></textarea>
-            <button onclick="postAd()">Transmit to Feed</button>
+            <textarea id="biz-desc" rows="3" placeholder="What are you promoting today?"></textarea>
+            <button class="action-btn" onclick="postAd()">TRANSMIT TO FEED</button>
         </div>
-
-        <!-- THE FEED -->
         <div class="panel" id="feed-panel">
-            <h2 style="margin-top: 0; font-size: 18px; color: #fff;">Live Promotions & Chat</h2>
-            
+            <h2 style="margin-top: 0; font-size: 18px;">Live Feed</h2>
             <div class="post">
-                <div class="post-author">@CyberDesigns</div>
-                <div>We build futuristic logos for startups! DM me to connect. 🚀</div>
-            </div>
-            
-            <div class="post" style="border-color: var(--neon-purple);">
-                <div class="post-author" style="color: var(--neon-blue);">@TechTrader</div>
-                <div>Looking to partner with dropshippers. Hit the chat module!</div>
+                <div style="color: var(--neon-purple); font-weight: bold;">@CyberDesigns</div>
+                <div>We build futuristic logos for startups! DM me. 🚀</div>
             </div>
         </div>
-
     </div>
 
-    <!-- JAVASCRIPT FOR INTERACTIVITY -->
-    <script>
-        // 1. Simulate Live Traffic going up
-        let traffic = 8402;
-        setInterval(() => {
-            traffic += Math.floor(Math.random() * 3);
-            document.getElementById('traffic-counter').innerText = traffic.toLocaleString();
-        }, 3000); // Updates every 3 seconds
+    <!-- PAGE 2: MARKETPLACE -->
+    <div id="market" class="page">
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px;">Categories</h2>
+            <div class="market-grid">
+                <div class="market-category">💻 Tech & Web</div>
+                <div class="market-category">👕 Fashion</div>
+                <div class="market-category">📈 Marketing</div>
+                <div class="market-category">🎨 Design</div>
+                <div class="market-category">🍔 Food</div>
+                <div class="market-category">💼 Services</div>
+            </div>
+        </div>
+    </div>
 
-        // 2. Make the "Post Ad" button actually work visually
+    <!-- PAGE 3: MESSAGES -->
+    <div id="messages" class="page">
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px;">Inbox</h2>
+            <div style="text-align: center; color: #888; padding: 20px;">
+                <i>End-to-End Encrypted Chat Module Offline.<br>Waiting for Database Connection...</i>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: PROFILE & DASHBOARD -->
+    <div id="profile" class="page">
+        <div class="panel" style="text-align: center;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--neon-blue); margin: 0 auto; box-shadow: 0 0 15px var(--neon-blue);"></div>
+            <h2 style="color: var(--neon-blue);">Admin User</h2>
+            <p style="color: #888;">Joined Today</p>
+        </div>
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 16px;">Platform Stats</h2>
+            <div style="display: flex; justify-content: space-between;">
+                <div>LIVE TRAFFIC:</div>
+                <div id="traffic-counter" style="color: var(--neon-purple); font-weight: bold;">8,420</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                <div>TOTAL ADS:</div>
+                <div style="color: var(--neon-blue); font-weight: bold;">1,204</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM APP NAVIGATION -->
+    <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchPage('feed', this)">
+            <span class="nav-icon">🌐</span>
+            Feed
+        </div>
+        <div class="nav-item" onclick="switchPage('market', this)">
+            <span class="nav-icon">🏬</span>
+            Market
+        </div>
+        <div class="nav-item" onclick="switchPage('messages', this)">
+            <span class="nav-icon">💬</span>
+            Inbox
+        </div>
+        <div class="nav-item" onclick="switchPage('profile', this)">
+            <span class="nav-icon">👤</span>
+            Profile
+        </div>
+    </nav>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Tab Switching Logic
+        function switchPage(pageId, navElement) {
+            // Hide all pages
+            let pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active-page'));
+
+            // Remove active color from all nav items
+            let navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Show selected page & highlight selected icon
+            document.getElementById(pageId).classList.add('active-page');
+            navElement.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0,0);
+        }
+
+        // Post Ad Logic
         function postAd() {
             let name = document.getElementById('biz-name').value;
             let desc = document.getElementById('biz-desc').value;
@@ -226,23 +272,23 @@
                 return;
             }
 
-            // Create the new post HTML
             let newPost = document.createElement('div');
             newPost.className = 'post';
-            newPost.innerHTML = `
-                <div class="post-author">@${name}</div>
-                <div>${desc}</div>
-            `;
+            newPost.innerHTML = `<div style="color: var(--neon-blue); font-weight: bold;">@${name}</div><div>${desc}</div>`;
 
-            // Add it to the top of the feed
             let feed = document.getElementById('feed-panel');
-            // Insert after the h2 title
             feed.insertBefore(newPost, feed.children[1]); 
 
-            // Clear the input boxes
             document.getElementById('biz-name').value = '';
             document.getElementById('biz-desc').value = '';
         }
+
+        // Traffic Counter
+        let traffic = 8420;
+        setInterval(() => {
+            traffic += Math.floor(Math.random() * 3);
+            document.getElementById('traffic-counter').innerText = traffic.toLocaleString();
+        }, 3000);
     </script>
 </body>
-  </html>
+</html>
