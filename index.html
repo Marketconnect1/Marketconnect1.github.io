@@ -10,7 +10,7 @@
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
             --dark-bg: #050509;
-            --glass-bg: rgba(20, 20, 30, 0.7);
+            --glass-bg: rgba(20, 20, 30, 0.85);
         }
 
         body {
@@ -21,7 +21,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
-            padding-bottom: 80px; /* Space for bottom nav */
+            padding-bottom: 80px;
         }
 
         header {
@@ -31,44 +31,22 @@
             box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
             position: sticky;
             top: 0;
-            background: rgba(5, 5, 9, 0.9);
+            background: rgba(5, 5, 9, 0.95);
             z-index: 100;
-            backdrop-filter: blur(5px);
         }
 
-        h1 {
-            margin: 0;
-            font-size: 24px;
-            letter-spacing: 3px;
-            color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--neon-blue);
-        }
+        h1 { margin: 0; font-size: 22px; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
 
-        /* PAGE SECTIONS */
-        .page {
-            display: none; /* Hides all pages by default */
-            padding: 15px;
-            animation: fadeIn 0.3s ease-in-out;
-            gap: 20px;
-            flex-direction: column;
-        }
+        .page { display: none; padding: 15px; gap: 20px; flex-direction: column; animation: fadeIn 0.3s; }
+        .active-page { display: flex; }
 
-        .active-page {
-            display: flex; /* Shows the active page */
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Panels & Inputs */
         .panel {
             background: var(--glass-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(10px);
         }
 
         input, textarea {
@@ -76,82 +54,48 @@
             background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--neon-blue);
             color: white;
-            padding: 10px;
+            padding: 12px;
             margin-top: 10px;
             border-radius: 5px;
             box-sizing: border-box;
+            font-family: inherit;
         }
 
-        button.action-btn {
+        button {
             width: 100%;
             padding: 12px;
             margin-top: 15px;
-            background: transparent;
+            background: rgba(0, 243, 255, 0.1);
             color: var(--neon-blue);
             border: 2px solid var(--neon-blue);
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            text-transform: uppercase;
         }
 
-        .post {
-            background: rgba(0, 0, 0, 0.8);
-            border-left: 4px solid var(--neon-blue);
-            padding: 15px;
-            margin-top: 15px;
-            border-radius: 5px;
+        button:active { background: var(--neon-blue); color: black; }
+
+        /* Posts */
+        .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; }
+        .post-img { max-width: 100%; border-radius: 5px; margin-top: 10px; display: none; }
+
+        /* File Upload */
+        .upload-btn {
+            background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; display: block;
         }
 
-        /* BOTTOM NAVIGATION BAR */
+        /* Bottom Nav */
         .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background: rgba(10, 10, 15, 0.95);
-            border-top: 1px solid var(--neon-purple);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            box-shadow: 0 -5px 20px rgba(188, 19, 254, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000;
         }
+        .nav-item { color: #888; text-align: center; font-size: 12px; cursor: pointer; }
+        .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 3px; }
 
-        .nav-item {
-            color: #888;
-            text-align: center;
-            font-size: 12px;
-            cursor: pointer;
-            padding: 5px 10px;
-            transition: 0.3s;
-        }
-
-        .nav-item.active {
-            color: var(--neon-purple);
-            text-shadow: 0 0 10px var(--neon-purple);
-        }
-
-        .nav-icon {
-            font-size: 20px;
-            display: block;
-            margin-bottom: 3px;
-        }
-
-        /* Grid for Marketplace */
-        .market-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .market-category {
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--neon-purple);
-            padding: 20px 10px;
-            text-align: center;
-            border-radius: 10px;
-            color: var(--neon-purple);
-        }
+        /* Grid */
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; }
     </style>
 </head>
 <body>
@@ -160,135 +104,186 @@
         <h1>MARKET CONNECT</h1>
     </header>
 
-    <!-- PAGE 1: FEED (Home) -->
-    <div id="feed" class="page active-page">
+    <!-- AUTHENTICATION PAGE (LOGIN/REGISTER) -->
+    <div id="auth" class="page active-page">
+        <div class="panel" style="text-align: center; margin-top: 20px;">
+            <h2>SYSTEM LOGIN</h2>
+            <p style="color: #888; font-size: 14px;">Register or login to enter the network.</p>
+            <input type="text" id="username" placeholder="Create Username...">
+            <input type="password" id="password" placeholder="Password...">
+            <button onclick="login()">ENTER NEXUS</button>
+        </div>
+    </div>
+
+    <!-- MAIN FEED -->
+    <div id="feed" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Broadcast Your Business</h2>
-            <input type="text" id="biz-name" placeholder="Business Name...">
+            <h2 style="margin-top: 0; font-size: 18px;">Global Broadcast</h2>
             <textarea id="biz-desc" rows="3" placeholder="What are you promoting today?"></textarea>
-            <button class="action-btn" onclick="postAd()">TRANSMIT TO FEED</button>
+            
+            <!-- Hidden File Input -->
+            <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
+            <!-- Custom Upload Button -->
+            <label for="file-input" class="upload-btn">📸 Attach Image/File</label>
+            <img id="image-preview" class="post-img" src="">
+
+            <button onclick="postAd('feed-panel')">TRANSMIT</button>
         </div>
         <div class="panel" id="feed-panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Live Feed</h2>
-            <div class="post">
-                <div style="color: var(--neon-purple); font-weight: bold;">@CyberDesigns</div>
-                <div>We build futuristic logos for startups! DM me. 🚀</div>
-            </div>
+            <h2 style="margin-top: 0; font-size: 18px;">Timeline</h2>
+            <!-- Posts will appear here -->
         </div>
     </div>
 
-    <!-- PAGE 2: MARKETPLACE -->
+    <!-- MARKETPLACE CATEGORIES -->
     <div id="market" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Categories</h2>
+            <h2 style="margin-top: 0; font-size: 18px;">Select Sector</h2>
             <div class="market-grid">
-                <div class="market-category">💻 Tech & Web</div>
-                <div class="market-category">👕 Fashion</div>
-                <div class="market-category">📈 Marketing</div>
-                <div class="market-category">🎨 Design</div>
-                <div class="market-category">🍔 Food</div>
-                <div class="market-category">💼 Services</div>
+                <div class="market-category" onclick="openCategory('Tech & Web')">💻 Tech & Web</div>
+                <div class="market-category" onclick="openCategory('Fashion')">👕 Fashion</div>
+                <div class="market-category" onclick="openCategory('Design')">🎨 Design</div>
+                <div class="market-category" onclick="openCategory('Services')">💼 Services</div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 3: MESSAGES -->
+    <!-- SPECIFIC CATEGORY PAGE -->
+    <div id="category-view" class="page">
+        <div class="panel">
+            <button onclick="switchPage('market')" style="margin-top:0; padding: 5px; width: 60px; border-color: #888; color: #888;">← Back</button>
+            <h2 id="cat-title" style="color: var(--neon-purple);">Category</h2>
+            <textarea id="cat-desc" rows="2" placeholder="Post product in this category..."></textarea>
+            <button onclick="postAd('cat-feed-panel', 'cat-desc')">POST PRODUCT</button>
+        </div>
+        <div class="panel" id="cat-feed-panel">
+            <h2 style="margin-top: 0; font-size: 18px;">Category Listings</h2>
+        </div>
+    </div>
+
+    <!-- MESSAGES -->
     <div id="messages" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Inbox</h2>
-            <div style="text-align: center; color: #888; padding: 20px;">
-                <i>End-to-End Encrypted Chat Module Offline.<br>Waiting for Database Connection...</i>
+            <h2 style="margin-top: 0; font-size: 18px;">Global Chat Room</h2>
+            <div id="chat-box" style="height: 200px; overflow-y: auto; background: #000; padding: 10px; border: 1px solid #333; margin-bottom: 10px;">
+                <div style="color: var(--neon-blue);">[System]: Welcome to Global Chat.</div>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="chat-msg" placeholder="Type a message..." style="margin-top: 0;">
+                <button onclick="sendChat()" style="margin-top: 0; width: 80px;">SEND</button>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 4: PROFILE & DASHBOARD -->
-    <div id="profile" class="page">
-        <div class="panel" style="text-align: center;">
-            <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--neon-blue); margin: 0 auto; box-shadow: 0 0 15px var(--neon-blue);"></div>
-            <h2 style="color: var(--neon-blue);">Admin User</h2>
-            <p style="color: #888;">Joined Today</p>
-        </div>
-        <div class="panel">
-            <h2 style="margin-top: 0; font-size: 16px;">Platform Stats</h2>
-            <div style="display: flex; justify-content: space-between;">
-                <div>LIVE TRAFFIC:</div>
-                <div id="traffic-counter" style="color: var(--neon-purple); font-weight: bold;">8,420</div>
-            </div>
-            <div style="display: flex; justify-content: space-between; margin-top: 10px;">
-                <div>TOTAL ADS:</div>
-                <div style="color: var(--neon-blue); font-weight: bold;">1,204</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- BOTTOM APP NAVIGATION -->
-    <nav class="bottom-nav">
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav" id="nav-bar">
         <div class="nav-item active" onclick="switchPage('feed', this)">
-            <span class="nav-icon">🌐</span>
-            Feed
+            <span class="nav-icon">🌐</span> Feed
         </div>
         <div class="nav-item" onclick="switchPage('market', this)">
-            <span class="nav-icon">🏬</span>
-            Market
+            <span class="nav-icon">🏬</span> Market
         </div>
         <div class="nav-item" onclick="switchPage('messages', this)">
-            <span class="nav-icon">💬</span>
-            Inbox
-        </div>
-        <div class="nav-item" onclick="switchPage('profile', this)">
-            <span class="nav-icon">👤</span>
-            Profile
+            <span class="nav-icon">💬</span> Chat
         </div>
     </nav>
 
     <!-- JAVASCRIPT -->
     <script>
-        // Tab Switching Logic
-        function switchPage(pageId, navElement) {
-            // Hide all pages
-            let pages = document.querySelectorAll('.page');
-            pages.forEach(page => page.classList.remove('active-page'));
+        let currentUser = "";
+        let uploadedImageSrc = "";
 
-            // Remove active color from all nav items
-            let navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-
-            // Show selected page & highlight selected icon
-            document.getElementById(pageId).classList.add('active-page');
-            navElement.classList.add('active');
+        // 1. LOGIN SYSTEM
+        function login() {
+            let user = document.getElementById('username').value;
+            let pass = document.getElementById('password').value;
             
-            // Scroll to top
+            if(user.length < 3) {
+                alert("Username must be at least 3 letters.");
+                return;
+            }
+            
+            // Save user temporarily
+            currentUser = user;
+            
+            // Hide Auth, Show Feed and Nav
+            document.getElementById('auth').classList.remove('active-page');
+            document.getElementById('feed').classList.add('active-page');
+            document.getElementById('nav-bar').style.display = 'flex';
+        }
+
+        // 2. PAGE NAVIGATION
+        function switchPage(pageId, navElement = null) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            
+            if(navElement) {
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                navElement.classList.add('active');
+            }
             window.scrollTo(0,0);
         }
 
-        // Post Ad Logic
-        function postAd() {
-            let name = document.getElementById('biz-name').value;
-            let desc = document.getElementById('biz-desc').value;
+        // 3. OPEN SPECIFIC CATEGORY
+        function openCategory(catName) {
+            document.getElementById('cat-title').innerText = catName + " Products";
+            switchPage('category-view');
+        }
 
-            if (name === "" || desc === "") {
-                alert("SYSTEM ERROR: Please fill in both fields.");
+        // 4. IMAGE UPLOAD PREVIEW
+        function previewImage(event) {
+            let reader = new FileReader();
+            reader.onload = function() {
+                let output = document.getElementById('image-preview');
+                output.src = reader.result;
+                output.style.display = 'block';
+                uploadedImageSrc = reader.result; // Save for posting
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // 5. POSTING LOGIC
+        function postAd(targetPanelId, inputId = 'biz-desc') {
+            let desc = document.getElementById(inputId).value;
+
+            if (desc === "" && uploadedImageSrc === "") {
+                alert("Please write something or attach an image.");
                 return;
             }
 
             let newPost = document.createElement('div');
             newPost.className = 'post';
-            newPost.innerHTML = `<div style="color: var(--neon-blue); font-weight: bold;">@${name}</div><div>${desc}</div>`;
+            
+            // Build the post HTML
+            let postContent = `<div style="color: var(--neon-purple); font-weight: bold;">@${currentUser}</div><div>${desc}</div>`;
+            
+            if(uploadedImageSrc !== "") {
+                postContent += `<img src="${uploadedImageSrc}" style="max-width: 100%; border-radius: 5px; margin-top: 10px;">`;
+            }
 
-            let feed = document.getElementById('feed-panel');
-            feed.insertBefore(newPost, feed.children[1]); 
+            newPost.innerHTML = postContent;
 
-            document.getElementById('biz-name').value = '';
-            document.getElementById('biz-desc').value = '';
+            let panel = document.getElementById(targetPanelId);
+            panel.insertBefore(newPost, panel.children[1]); 
+
+            // Clear inputs
+            document.getElementById(inputId).value = '';
+            document.getElementById('image-preview').style.display = 'none';
+            document.getElementById('image-preview').src = '';
+            uploadedImageSrc = "";
         }
 
-        // Traffic Counter
-        let traffic = 8420;
-        setInterval(() => {
-            traffic += Math.floor(Math.random() * 3);
-            document.getElementById('traffic-counter').innerText = traffic.toLocaleString();
-        }, 3000);
+        // 6. CHAT LOGIC
+        function sendChat() {
+            let msg = document.getElementById('chat-msg').value;
+            if(msg === "") return;
+
+            let chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += `<div style="margin-top: 5px;"><span style="color: var(--neon-purple); font-weight:bold;">${currentUser}:</span> ${msg}</div>`;
+            
+            document.getElementById('chat-msg').value = '';
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
+        }
     </script>
 </body>
-</html>
+    </html>
