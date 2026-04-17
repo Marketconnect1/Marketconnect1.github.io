@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Market Connect</title>
     <style>
-        /* FUTURISTIC CSS & DYNAMIC THEMES */
         :root {
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
@@ -57,14 +56,9 @@
             top: 0;
             background: rgba(5, 5, 9, 0.95);
             z-index: 100;
-            transition: border-color 0.5s;
         }
 
-        h1 { 
-            margin: 0; font-size: 22px; color: var(--neon-blue); 
-            animation: pulseGlow 2s infinite alternate;
-            transition: color 0.5s;
-        }
+        h1 { margin: 0; font-size: 22px; color: var(--neon-blue); animation: pulseGlow 2s infinite alternate;}
 
         @keyframes pulseGlow {
             0% { text-shadow: 0 0 5px var(--neon-blue); }
@@ -85,12 +79,6 @@
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .panel:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
         }
 
         input, textarea {
@@ -103,12 +91,6 @@
             border-radius: 5px;
             box-sizing: border-box;
             font-family: inherit;
-            transition: border-color 0.5s;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            box-shadow: 0 0 10px var(--neon-blue);
         }
 
         button {
@@ -122,32 +104,22 @@
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            transition: all 0.3s;
         }
 
-        button:hover { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--neon-blue); }
-        button:active { background: var(--neon-blue); color: black; transform: scale(0.98); }
+        button:active { background: var(--neon-blue); color: black; }
 
-        .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; word-wrap: break-word; transition: border-color 0.5s;}
+        .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; word-wrap: break-word;}
         .post-img { max-width: 100%; border-radius: 5px; margin-top: 10px; display: none; }
 
-        .upload-btn {
-            background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; display: block; transition: all 0.3s;
-        }
-        .upload-btn:hover { background: rgba(255,255,255,0.05); text-shadow: 0 0 8px var(--neon-purple); }
+        .upload-btn { background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; display: block; }
 
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000;
-            transition: border-color 0.5s;
-        }
-        .nav-item { color: #888; text-align: center; font-size: 11px; cursor: pointer; transition: all 0.3s; flex: 1; }
-        .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); transform: translateY(-3px); }
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000; }
+        .nav-item { color: #888; text-align: center; font-size: 11px; cursor: pointer; flex: 1; }
+        .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
         .nav-icon { font-size: 20px; display: block; margin-bottom: 3px; }
 
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; transition: all 0.3s;}
-        .market-category:hover { background: rgba(255,255,255,0.05); transform: scale(1.05); box-shadow: 0 0 15px var(--neon-purple); }
-
+        .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; }
         .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .theme-btn { padding: 10px; border-radius: 5px; cursor: pointer; text-align: center; font-weight: bold; border: 1px solid #555; }
     </style>
@@ -166,6 +138,7 @@
             <input type="text" id="username" placeholder="Create Username...">
             <input type="password" id="password" placeholder="Password...">
             <button onclick="login()">ENTER NEXUS</button>
+            <p style="color: #333; font-size: 10px; margin-top: 20px;">v5.0 SafeMode</p>
         </div>
     </div>
 
@@ -174,11 +147,9 @@
         <div class="panel">
             <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-blue);">Global Broadcast</h2>
             <textarea id="biz-desc" rows="3" placeholder="What are you promoting today?"></textarea>
-            
             <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="previewImage(event, 'image-preview')">
             <label for="file-input" class="upload-btn">📸 Attach Image/File</label>
             <img id="image-preview" class="post-img" src="">
-
             <button onclick="postAd('feed-panel', 'biz-desc', 'image-preview')">TRANSMIT</button>
         </div>
         <div class="panel" id="feed-panel">
@@ -196,15 +167,6 @@
             <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 5px; border-left: 3px solid var(--neon-purple); margin-bottom: 10px;">
                 <span style="color:var(--neon-purple);">#2 Trending:</span> Neon Threads Fashion 👗
             </div>
-            <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 5px; border-left: 3px solid var(--neon-blue);">
-                <span style="color:var(--neon-blue);">#3 Trending:</span> AI Code Assistants 💻
-            </div>
-        </div>
-        <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Global Stats</h2>
-            <p>Active Users: <span style="color: #0ff;">1,042,993</span></p>
-            <p>Market Volume: <span style="color: #0ff;">$4.2B Credits</span></p>
-            <p>Network Status: <span style="color: #0f0;">ONLINE & SECURE</span></p>
         </div>
     </div>
 
@@ -217,8 +179,6 @@
                 <div class="market-category" onclick="openCategory('Fashion')">👕 Fashion</div>
                 <div class="market-category" onclick="openCategory('Design')">🎨 Design</div>
                 <div class="market-category" onclick="openCategory('Services')">💼 Services</div>
-                <div class="market-category" onclick="openCategory('Vehicles')">🚀 Vehicles</div>
-                <div class="market-category" onclick="openCategory('Real Estate')">🏙️ Real Estate</div>
             </div>
         </div>
     </div>
@@ -228,12 +188,10 @@
         <div class="panel">
             <button onclick="switchPage('market')" style="margin-top:0; padding: 5px; width: 60px; border-color: #888; color: #888;">← Back</button>
             <h2 id="cat-title" style="color: var(--neon-purple); margin-top:15px;">Category</h2>
-            <textarea id="cat-desc" rows="2" placeholder="Post product in this category..."></textarea>
-            
+            <textarea id="cat-desc" rows="2" placeholder="Post product..."></textarea>
             <input type="file" id="cat-file-input" accept="image/*" style="display: none;" onchange="previewImage(event, 'cat-image-preview')">
             <label for="cat-file-input" class="upload-btn">📸 Attach Product Image</label>
             <img id="cat-image-preview" class="post-img" src="">
-
             <button onclick="postAd('cat-feed-panel', 'cat-desc', 'cat-image-preview')">POST PRODUCT</button>
         </div>
         <div class="panel" id="cat-feed-panel">
@@ -245,8 +203,8 @@
     <div id="messages" class="page">
         <div class="panel">
             <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-blue);">Global Chat Room</h2>
-            <div id="chat-box" style="height: 300px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 10px; border: 1px solid var(--neon-purple); margin-bottom: 10px; border-radius: 5px;">
-                <div style="color: var(--neon-blue);">[System]: Welcome to Global Chat. Transmission encrypted.</div>
+            <div id="chat-box" style="height: 300px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 10px; border: 1px solid var(--neon-purple); margin-bottom: 10px;">
+                <div style="color: var(--neon-blue);">[System]: Welcome.</div>
             </div>
             <div style="display: flex; gap: 10px;">
                 <input type="text" id="chat-msg" placeholder="Type a message..." style="margin-top: 0;">
@@ -255,10 +213,9 @@
         </div>
     </div>
 
-    <!-- PROFILE & THEMES PAGE -->
+    <!-- PROFILE PAGE -->
     <div id="profile" class="page">
         <div class="panel" style="text-align: center;">
-            <div style="width: 80px; height: 80px; background: #333; border-radius: 50%; margin: 0 auto; border: 3px solid var(--neon-blue); line-height: 80px; font-size: 30px;">👤</div>
             <h2 id="profile-name" style="color: var(--neon-blue);">@User</h2>
             <p style="color: #888; font-size: 14px;">Network Operative</p>
         </div>
@@ -266,147 +223,99 @@
             <h2 style="margin-top: 0; font-size: 18px;">System Themes</h2>
             <div class="theme-grid">
                 <div class="theme-btn" style="background: #00f3ff22; color: #00f3ff; border-color: #00f3ff;" onclick="setTheme('#00f3ff', '#bc13fe')">Cyberpunk</div>
-                <div class="theme-btn" style="background: #0f02; color: #0f0; border-color: #0f0;" onclick="setTheme('#00ff00', '#006600')">Matrix Green</div>
-                <div class="theme-btn" style="background: #ff00ff22; color: #ff00ff; border-color: #ff00ff;" onclick="setTheme('#ff00ff', '#00ffff')">Synthwave</div>
-                <div class="theme-btn" style="background: #ff880022; color: #ff8800; border-color: #ff8800;" onclick="setTheme('#ff8800', '#ff0000')">Solar Flare</div>
+                <div class="theme-btn" style="background: #0f02; color: #0f0; border-color: #0f0;" onclick="setTheme('#00ff00', '#006600')">Matrix</div>
             </div>
         </div>
     </div>
 
     <!-- BOTTOM NAV -->
     <nav class="bottom-nav" id="nav-bar">
-        <div class="nav-item active" onclick="switchPage('feed', this)">
-            <span class="nav-icon">🌐</span> Feed
-        </div>
-        <div class="nav-item" onclick="switchPage('explore', this)">
-            <span class="nav-icon">🔥</span> Explore
-        </div>
-        <div class="nav-item" onclick="switchPage('market', this)">
-            <span class="nav-icon">🏬</span> Market
-        </div>
-        <div class="nav-item" onclick="switchPage('messages', this)">
-            <span class="nav-icon">💬</span> Chat
-        </div>
-        <div class="nav-item" onclick="switchPage('profile', this)">
-            <span class="nav-icon">👤</span> Profile
-        </div>
-        <div class="nav-item" onclick="logout()">
-            <span class="nav-icon">🚪</span> Exit
-        </div>
+        <div class="nav-item active" onclick="switchPage('feed', this)"><span class="nav-icon">🌐</span> Feed</div>
+        <div class="nav-item" onclick="switchPage('explore', this)"><span class="nav-icon">🔥</span> Explore</div>
+        <div class="nav-item" onclick="switchPage('market', this)"><span class="nav-icon">🏬</span> Market</div>
+        <div class="nav-item" onclick="switchPage('messages', this)"><span class="nav-icon">💬</span> Chat</div>
+        <div class="nav-item" onclick="switchPage('profile', this)"><span class="nav-icon">👤</span> Profile</div>
+        <div class="nav-item" onclick="logout()"><span class="nav-icon">🚪</span> Exit</div>
     </nav>
 
-    <!-- JAVASCRIPT -->
     <script>
         var currentUser = "";
         var currentCategory = ""; 
 
+        // Safe Storage Wrapper (Prevents mobile browsers from crashing)
+        function safeSave(key, value) {
+            try { localStorage.setItem(key, value); } catch(e) {}
+        }
+        function safeLoad(key) {
+            try { return localStorage.getItem(key); } catch(e) { return null; }
+        }
+
         function escapeHTML(str) {
             return str.replace(/[&<>'"]/g, function(tag) {
-                var charsToReplace = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    "'": '&#39;',
-                    '"': '&quot;'
-                };
-                return charsToReplace[tag] || tag;
+                var replace = {'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'};
+                return replace[tag] || tag;
             });
         }
 
-        function setTheme(primaryColor, secondaryColor) {
-            document.documentElement.style.setProperty('--neon-blue', primaryColor);
-            document.documentElement.style.setProperty('--neon-purple', secondaryColor);
-            localStorage.setItem('theme-primary', primaryColor);
-            localStorage.setItem('theme-secondary', secondaryColor);
+        function setTheme(primary, secondary) {
+            document.documentElement.style.setProperty('--neon-blue', primary);
+            document.documentElement.style.setProperty('--neon-purple', secondary);
+            safeSave('theme-primary', primary);
+            safeSave('theme-secondary', secondary);
         }
 
         window.onload = function() {
-            if(localStorage.getItem('theme-primary')) {
-                setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
-            }
+            var savedPrimary = safeLoad('theme-primary');
+            if(savedPrimary) setTheme(savedPrimary, safeLoad('theme-secondary'));
 
-            if(localStorage.getItem('currentUser')) {
-                currentUser = localStorage.getItem('currentUser');
-                
-                var profileNameEl = document.getElementById('profile-name');
-                if(profileNameEl) profileNameEl.innerText = "@" + currentUser; 
-                
-                var authEl = document.getElementById('auth');
-                if(authEl) authEl.classList.remove('active-page');
-                
-                var feedEl = document.getElementById('feed');
-                if(feedEl) feedEl.classList.add('active-page');
-                
-                var navBar = document.getElementById('nav-bar');
-                if(navBar) navBar.style.display = 'flex';
+            var savedUser = safeLoad('currentUser');
+            if(savedUser) {
+                currentUser = savedUser;
+                document.getElementById('profile-name').innerText = "@" + currentUser; 
+                document.getElementById('auth').classList.remove('active-page');
+                document.getElementById('feed').classList.add('active-page');
+                document.getElementById('nav-bar').style.display = 'flex';
             }
             
-            if(localStorage.getItem('feedPosts')) {
-                var feedPanel = document.getElementById('feed-panel');
-                if(feedPanel) feedPanel.innerHTML = localStorage.getItem('feedPosts');
-            }
-            if(localStorage.getItem('catPosts')) {
-                var catPanel = document.getElementById('cat-feed-panel');
-                if(catPanel) catPanel.innerHTML = localStorage.getItem('catPosts');
-            }
-            if(localStorage.getItem('chatMsgs')) {
-                var chatBox = document.getElementById('chat-box');
-                if(chatBox) chatBox.innerHTML = localStorage.getItem('chatMsgs');
-            }
+            var savedFeed = safeLoad('feedPosts');
+            if(savedFeed) document.getElementById('feed-panel').innerHTML = savedFeed;
+            
+            var savedChat = safeLoad('chatMsgs');
+            if(savedChat) document.getElementById('chat-box').innerHTML = savedChat;
         };
 
         function login() {
-            var userEl = document.getElementById('username');
-            if(!userEl) return;
-            
-            var user = userEl.value.trim();
+            var user = document.getElementById('username').value.trim();
             if(user.length < 3) {
                 alert("Username must be at least 3 letters.");
                 return;
             }
             
             currentUser = escapeHTML(user);
-            localStorage.setItem('currentUser', currentUser); 
+            safeSave('currentUser', currentUser); 
             
-            var profileNameEl = document.getElementById('profile-name');
-            if(profileNameEl) profileNameEl.innerText = "@" + currentUser;
+            document.getElementById('profile-name').innerText = "@" + currentUser;
             
-            var authEl = document.getElementById('auth');
-            if(authEl) authEl.classList.remove('active-page');
-            
-            var feedEl = document.getElementById('feed');
-            if(feedEl) feedEl.classList.add('active-page');
-            
-            var navBar = document.getElementById('nav-bar');
-            if(navBar) navBar.style.display = 'flex';
-        }
-
-        var pwdEl = document.getElementById('password');
-        if(pwdEl) {
-            pwdEl.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') login();
-            });
+            // Swap Pages
+            document.getElementById('auth').classList.remove('active-page');
+            document.getElementById('feed').classList.add('active-page');
+            document.getElementById('nav-bar').style.display = 'flex';
         }
 
         function logout() {
-            localStorage.removeItem('currentUser');
+            try { localStorage.clear(); } catch(e) {}
             location.reload(); 
         }
 
         function switchPage(pageId, navElement) {
             var pages = document.querySelectorAll('.page');
-            for(var i = 0; i < pages.length; i++) {
-                pages[i].classList.remove('active-page');
-            }
+            for(var i = 0; i < pages.length; i++) pages[i].classList.remove('active-page');
             
-            var targetPage = document.getElementById(pageId);
-            if(targetPage) targetPage.classList.add('active-page');
+            document.getElementById(pageId).classList.add('active-page');
             
             if(navElement) {
                 var navItems = document.querySelectorAll('.nav-item');
-                for(var j = 0; j < navItems.length; j++) {
-                    navItems[j].classList.remove('active');
-                }
+                for(var j = 0; j < navItems.length; j++) navItems[j].classList.remove('active');
                 navElement.classList.add('active');
             }
             window.scrollTo(0,0);
@@ -414,37 +323,54 @@
 
         function openCategory(catName) {
             currentCategory = catName;
-            var catTitle = document.getElementById('cat-title');
-            if(catTitle) catTitle.innerText = catName + " Products";
+            document.getElementById('cat-title').innerText = catName + " Products";
             switchPage('category-view', null);
         }
 
         function previewImage(event, previewId) {
             var reader = new FileReader();
             reader.onload = function() {
-                var output = document.getElementById(previewId);
-                if(output) {
-                    output.src = reader.result;
-                    output.style.display = 'block';
-                }
+                document.getElementById(previewId).src = reader.result;
+                document.getElementById(previewId).style.display = 'block';
             }
-            if(event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
-            }
+            if(event.target.files[0]) reader.readAsDataURL(event.target.files[0]);
         }
 
         function postAd(targetPanelId, inputId, previewId) {
-            var inputEl = document.getElementById(inputId);
+            var desc = escapeHTML(document.getElementById(inputId).value.trim());
             var imgElement = document.getElementById(previewId);
-            if(!inputEl || !imgElement) return;
-
-            var desc = escapeHTML(inputEl.value.trim());
-            var uploadedImageSrc = imgElement.src;
-
-            if (desc === "" && imgElement.style.display !== 'block') {
-                alert("Please write something or attach an image.");
-                return;
-            }
+            
+            if (desc === "" && imgElement.style.display !== 'block') return alert("Write something or attach an image.");
 
             var newPost = document.createElement('div');
-            newPost.className = 'pos
+            newPost.className = 'post';
+            
+            var tag = targetPanelId === 'cat-feed-panel' ? ' <span style="color:#888;font-size:12px;">['+currentCategory+']</span>' : '';
+            var html = '<div style="color:var(--neon-purple);font-weight:bold;">@' + currentUser + tag + '</div><div style="margin-top:5px;">' + desc + '</div>';
+            
+            if(imgElement.style.display === 'block') html += '<img src="' + imgElement.src + '" style="max-width:100%;border-radius:5px;margin-top:10px;">';
+            newPost.innerHTML = html;
+
+            var panel = document.getElementById(targetPanelId);
+            panel.insertBefore(newPost, panel.children[1]); 
+            
+            safeSave(targetPanelId === 'feed-panel' ? 'feedPosts' : 'catPosts', panel.innerHTML);
+
+            document.getElementById(inputId).value = '';
+            imgElement.style.display = 'none';
+        }
+
+        function sendChat() {
+            var msg = escapeHTML(document.getElementById('chat-msg').value.trim());
+            if(msg === "") return;
+
+            var chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML += '<div style="margin-top:8px;border-bottom:1px solid #333;padding-bottom:5px;"><span style="color:var(--neon-purple);font-weight:bold;">' + currentUser + ':</span> ' + msg + '</div>';
+            
+            safeSave('chatMsgs', chatBox.innerHTML);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            document.getElementById('chat-msg').value = '';
+        }
+    </script>
+</body>
+</html>
