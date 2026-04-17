@@ -297,18 +297,20 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        let currentUser = "";
-        let currentCategory = ""; 
+        var currentUser = "";
+        var currentCategory = ""; 
 
         function escapeHTML(str) {
-            return str.replace(/[&<>'"]/g, 
-                tag => ({
+            return str.replace(/[&<>'"]/g, function(tag) {
+                var charsToReplace = {
                     '&': '&amp;',
                     '<': '&lt;',
                     '>': '&gt;',
                     "'": '&#39;',
                     '"': '&quot;'
-                }[tag]));
+                };
+                return charsToReplace[tag] || tag;
+            });
         }
 
         function setTheme(primaryColor, secondaryColor) {
@@ -319,86 +321,92 @@
         }
 
         window.onload = function() {
-            try {
-                if(localStorage.getItem('theme-primary')) {
-                    setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
-                }
-
-                if(localStorage.getItem('currentUser')) {
-                    currentUser = localStorage.getItem('currentUser');
-                    // Safety check added using '?.'
-                    let profileNameEl = document.getElementById('profile-name');
-                    if(profileNameEl) profileNameEl.innerText = "@" + currentUser; 
-                    
-                    document.getElementById('auth')?.classList.remove('active-page');
-                    document.getElementById('feed')?.classList.add('active-page');
-                    let navBar = document.getElementById('nav-bar');
-                    if(navBar) navBar.style.display = 'flex';
-                }
-                
-                if(localStorage.getItem('feedPosts')) {
-                    let feedPanel = document.getElementById('feed-panel');
-                    if(feedPanel) feedPanel.innerHTML = localStorage.getItem('feedPosts');
-                }
-                if(localStorage.getItem('catPosts')) {
-                    let catPanel = document.getElementById('cat-feed-panel');
-                    if(catPanel) catPanel.innerHTML = localStorage.getItem('catPosts');
-                }
-                if(localStorage.getItem('chatMsgs')) {
-                    let chatBox = document.getElementById('chat-box');
-                    if(chatBox) chatBox.innerHTML = localStorage.getItem('chatMsgs');
-                }
-            } catch (error) {
-                console.log("Safe loading bypass", error);
+            if(localStorage.getItem('theme-primary')) {
+                setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
             }
-        }
+
+            if(localStorage.getItem('currentUser')) {
+                currentUser = localStorage.getItem('currentUser');
+                
+                var profileNameEl = document.getElementById('profile-name');
+                if(profileNameEl) profileNameEl.innerText = "@" + currentUser; 
+                
+                var authEl = document.getElementById('auth');
+                if(authEl) authEl.classList.remove('active-page');
+                
+                var feedEl = document.getElementById('feed');
+                if(feedEl) feedEl.classList.add('active-page');
+                
+                var navBar = document.getElementById('nav-bar');
+                if(navBar) navBar.style.display = 'flex';
+            }
+            
+            if(localStorage.getItem('feedPosts')) {
+                var feedPanel = document.getElementById('feed-panel');
+                if(feedPanel) feedPanel.innerHTML = localStorage.getItem('feedPosts');
+            }
+            if(localStorage.getItem('catPosts')) {
+                var catPanel = document.getElementById('cat-feed-panel');
+                if(catPanel) catPanel.innerHTML = localStorage.getItem('catPosts');
+            }
+            if(localStorage.getItem('chatMsgs')) {
+                var chatBox = document.getElementById('chat-box');
+                if(chatBox) chatBox.innerHTML = localStorage.getItem('chatMsgs');
+            }
+        };
 
         function login() {
-            try {
-                let userEl = document.getElementById('username');
-                if(!userEl) return;
-                
-                let user = userEl.value.trim();
-                if(user.length < 3) {
-                    alert("Username must be at least 3 letters.");
-                    return;
-                }
-                
-                currentUser = escapeHTML(user);
-                localStorage.setItem('currentUser', currentUser); 
-                
-                // Safety checks added here to prevent crashing
-                let profileNameEl = document.getElementById('profile-name');
-                if(profileNameEl) profileNameEl.innerText = "@" + currentUser;
-                
-                document.getElementById('auth')?.classList.remove('active-page');
-                document.getElementById('feed')?.classList.add('active-page');
-                
-                let navBar = document.getElementById('nav-bar');
-                if(navBar) navBar.style.display = 'flex';
-                
-            } catch (error) {
-                console.error("Login Error:", error);
-                alert("An error occurred during login. Please refresh the page.");
+            var userEl = document.getElementById('username');
+            if(!userEl) return;
+            
+            var user = userEl.value.trim();
+            if(user.length < 3) {
+                alert("Username must be at least 3 letters.");
+                return;
             }
+            
+            currentUser = escapeHTML(user);
+            localStorage.setItem('currentUser', currentUser); 
+            
+            var profileNameEl = document.getElementById('profile-name');
+            if(profileNameEl) profileNameEl.innerText = "@" + currentUser;
+            
+            var authEl = document.getElementById('auth');
+            if(authEl) authEl.classList.remove('active-page');
+            
+            var feedEl = document.getElementById('feed');
+            if(feedEl) feedEl.classList.add('active-page');
+            
+            var navBar = document.getElementById('nav-bar');
+            if(navBar) navBar.style.display = 'flex';
         }
 
-        // Allow hitting "Enter" to login (with safety check)
-        document.getElementById('password')?.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') login();
-        });
+        var pwdEl = document.getElementById('password');
+        if(pwdEl) {
+            pwdEl.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') login();
+            });
+        }
 
         function logout() {
             localStorage.removeItem('currentUser');
             location.reload(); 
         }
 
-        function switchPage(pageId, navElement = null) {
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
-            document.getElementById(pageId)?.classList.add('active-page');
+        function switchPage(pageId, navElement) {
+            var pages = document.querySelectorAll('.page');
+            for(var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active-page');
+            }
+            
+            var targetPage = document.getElementById(pageId);
+            if(targetPage) targetPage.classList.add('active-page');
             
             if(navElement) {
-                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                var navItems = document.querySelectorAll('.nav-item');
+                for(var j = 0; j < navItems.length; j++) {
+                    navItems[j].classList.remove('active');
+                }
                 navElement.classList.add('active');
             }
             window.scrollTo(0,0);
@@ -406,15 +414,15 @@
 
         function openCategory(catName) {
             currentCategory = catName;
-            let catTitle = document.getElementById('cat-title');
+            var catTitle = document.getElementById('cat-title');
             if(catTitle) catTitle.innerText = catName + " Products";
-            switchPage('category-view');
+            switchPage('category-view', null);
         }
 
         function previewImage(event, previewId) {
-            let reader = new FileReader();
+            var reader = new FileReader();
             reader.onload = function() {
-                let output = document.getElementById(previewId);
+                var output = document.getElementById(previewId);
                 if(output) {
                     output.src = reader.result;
                     output.style.display = 'block';
@@ -426,16 +434,17 @@
         }
 
         function postAd(targetPanelId, inputId, previewId) {
-            let inputEl = document.getElementById(inputId);
-            let imgElement = document.getElementById(previewId);
+            var inputEl = document.getElementById(inputId);
+            var imgElement = document.getElementById(previewId);
             if(!inputEl || !imgElement) return;
 
-            let desc = escapeHTML(inputEl.value.trim());
-            let uploadedImageSrc = imgElement.src;
+            var desc = escapeHTML(inputEl.value.trim());
+            var uploadedImageSrc = imgElement.src;
 
             if (desc === "" && imgElement.style.display !== 'block') {
                 alert("Please write something or attach an image.");
                 return;
             }
 
-            let newPost = document.createEleme
+            var newPost = document.createElement('div');
+            newPost.className = 'pos
