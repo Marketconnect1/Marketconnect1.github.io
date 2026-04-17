@@ -13,7 +13,6 @@
             --glass-bg: rgba(20, 20, 30, 0.85);
         }
 
-        /* NEW: Animated Moving Background & Grid */
         body {
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050509 100%);
@@ -27,7 +26,6 @@
             padding-bottom: 80px;
         }
 
-        /* NEW: Holographic Scrolling Grid Overlay */
         body::before {
             content: "";
             position: fixed;
@@ -62,7 +60,6 @@
             transition: border-color 0.5s;
         }
 
-        /* NEW: Pulsing Glow Animation for Titles */
         h1 { 
             margin: 0; font-size: 22px; color: var(--neon-blue); 
             animation: pulseGlow 2s infinite alternate;
@@ -74,7 +71,6 @@
             100% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
         }
 
-        /* NEW: Slide-Up Page Transition */
         .page { display: none; padding: 15px; gap: 20px; flex-direction: column; animation: slideUp 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); }
         .active-page { display: flex; }
 
@@ -132,31 +128,26 @@
         button:hover { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--neon-blue); }
         button:active { background: var(--neon-blue); color: black; transform: scale(0.98); }
 
-        /* Posts */
         .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; word-wrap: break-word; transition: border-color 0.5s;}
         .post-img { max-width: 100%; border-radius: 5px; margin-top: 10px; display: none; }
 
-        /* File Upload */
         .upload-btn {
             background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; display: block; transition: all 0.3s;
         }
         .upload-btn:hover { background: rgba(255,255,255,0.05); text-shadow: 0 0 8px var(--neon-purple); }
 
-        /* Bottom Nav */
         .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000;
             transition: border-color 0.5s;
         }
         .nav-item { color: #888; text-align: center; font-size: 11px; cursor: pointer; transition: all 0.3s; flex: 1; }
         .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); transform: translateY(-3px); }
         .nav-icon { font-size: 20px; display: block; margin-bottom: 3px; }
 
-        /* Grid */
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; transition: all 0.3s;}
         .market-category:hover { background: rgba(255,255,255,0.05); transform: scale(1.05); box-shadow: 0 0 15px var(--neon-purple); }
 
-        /* NEW: Theme Selector Grid */
         .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .theme-btn { padding: 10px; border-radius: 5px; cursor: pointer; text-align: center; font-weight: bold; border: 1px solid #555; }
     </style>
@@ -192,11 +183,10 @@
         </div>
         <div class="panel" id="feed-panel">
             <h2 style="margin-top: 0; font-size: 18px;">Timeline</h2>
-            <!-- Posts will appear here -->
         </div>
     </div>
 
-    <!-- NEW: EXPLORE PAGE -->
+    <!-- EXPLORE PAGE -->
     <div id="explore" class="page">
         <div class="panel">
             <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-purple);">Network Trending</h2>
@@ -227,7 +217,6 @@
                 <div class="market-category" onclick="openCategory('Fashion')">👕 Fashion</div>
                 <div class="market-category" onclick="openCategory('Design')">🎨 Design</div>
                 <div class="market-category" onclick="openCategory('Services')">💼 Services</div>
-                <!-- Extra categories to show off scrolling -->
                 <div class="market-category" onclick="openCategory('Vehicles')">🚀 Vehicles</div>
                 <div class="market-category" onclick="openCategory('Real Estate')">🏙️ Real Estate</div>
             </div>
@@ -266,7 +255,7 @@
         </div>
     </div>
 
-    <!-- NEW: PROFILE & THEMES PAGE -->
+    <!-- PROFILE & THEMES PAGE -->
     <div id="profile" class="page">
         <div class="panel" style="text-align: center;">
             <div style="width: 80px; height: 80px; background: #333; border-radius: 50%; margin: 0 auto; border: 3px solid var(--neon-blue); line-height: 80px; font-size: 30px;">👤</div>
@@ -284,7 +273,7 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAV (UPDATED WITH NEW PAGES) -->
+    <!-- BOTTOM NAV -->
     <nav class="bottom-nav" id="nav-bar">
         <div class="nav-item active" onclick="switchPage('feed', this)">
             <span class="nav-icon">🌐</span> Feed
@@ -311,7 +300,6 @@
         let currentUser = "";
         let currentCategory = ""; 
 
-        // HELPER: Prevent XSS by sanitizing text
         function escapeHTML(str) {
             return str.replace(/[&<>'"]/g, 
                 tag => ({
@@ -323,7 +311,6 @@
                 }[tag]));
         }
 
-        // NEW: Apply Theme Function
         function setTheme(primaryColor, secondaryColor) {
             document.documentElement.style.setProperty('--neon-blue', primaryColor);
             document.documentElement.style.setProperty('--neon-purple', secondaryColor);
@@ -331,59 +318,84 @@
             localStorage.setItem('theme-secondary', secondaryColor);
         }
 
-        // INIT: Check if user is already logged in & load saved data
         window.onload = function() {
-            // Load saved theme
-            if(localStorage.getItem('theme-primary')) {
-                setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
-            }
+            try {
+                if(localStorage.getItem('theme-primary')) {
+                    setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
+                }
 
-            if(localStorage.getItem('currentUser')) {
-                currentUser = localStorage.getItem('currentUser');
-                document.getElementById('profile-name').innerText = "@" + currentUser; // Set profile name
-                document.getElementById('auth').classList.remove('active-page');
-                document.getElementById('feed').classList.add('active-page');
-                document.getElementById('nav-bar').style.display = 'flex';
+                if(localStorage.getItem('currentUser')) {
+                    currentUser = localStorage.getItem('currentUser');
+                    // Safety check added using '?.'
+                    let profileNameEl = document.getElementById('profile-name');
+                    if(profileNameEl) profileNameEl.innerText = "@" + currentUser; 
+                    
+                    document.getElementById('auth')?.classList.remove('active-page');
+                    document.getElementById('feed')?.classList.add('active-page');
+                    let navBar = document.getElementById('nav-bar');
+                    if(navBar) navBar.style.display = 'flex';
+                }
+                
+                if(localStorage.getItem('feedPosts')) {
+                    let feedPanel = document.getElementById('feed-panel');
+                    if(feedPanel) feedPanel.innerHTML = localStorage.getItem('feedPosts');
+                }
+                if(localStorage.getItem('catPosts')) {
+                    let catPanel = document.getElementById('cat-feed-panel');
+                    if(catPanel) catPanel.innerHTML = localStorage.getItem('catPosts');
+                }
+                if(localStorage.getItem('chatMsgs')) {
+                    let chatBox = document.getElementById('chat-box');
+                    if(chatBox) chatBox.innerHTML = localStorage.getItem('chatMsgs');
+                }
+            } catch (error) {
+                console.log("Safe loading bypass", error);
             }
-            
-            // Load saved posts and chats
-            if(localStorage.getItem('feedPosts')) document.getElementById('feed-panel').innerHTML = localStorage.getItem('feedPosts');
-            if(localStorage.getItem('catPosts')) document.getElementById('cat-feed-panel').innerHTML = localStorage.getItem('catPosts');
-            if(localStorage.getItem('chatMsgs')) document.getElementById('chat-box').innerHTML = localStorage.getItem('chatMsgs');
         }
 
-        // 1. LOGIN SYSTEM
         function login() {
-            let user = document.getElementById('username').value.trim();
-            if(user.length < 3) {
-                alert("Username must be at least 3 letters.");
-                return;
+            try {
+                let userEl = document.getElementById('username');
+                if(!userEl) return;
+                
+                let user = userEl.value.trim();
+                if(user.length < 3) {
+                    alert("Username must be at least 3 letters.");
+                    return;
+                }
+                
+                currentUser = escapeHTML(user);
+                localStorage.setItem('currentUser', currentUser); 
+                
+                // Safety checks added here to prevent crashing
+                let profileNameEl = document.getElementById('profile-name');
+                if(profileNameEl) profileNameEl.innerText = "@" + currentUser;
+                
+                document.getElementById('auth')?.classList.remove('active-page');
+                document.getElementById('feed')?.classList.add('active-page');
+                
+                let navBar = document.getElementById('nav-bar');
+                if(navBar) navBar.style.display = 'flex';
+                
+            } catch (error) {
+                console.error("Login Error:", error);
+                alert("An error occurred during login. Please refresh the page.");
             }
-            
-            currentUser = escapeHTML(user);
-            localStorage.setItem('currentUser', currentUser); // Save User
-            document.getElementById('profile-name').innerText = "@" + currentUser; // Set profile name
-            
-            document.getElementById('auth').classList.remove('active-page');
-            document.getElementById('feed').classList.add('active-page');
-            document.getElementById('nav-bar').style.display = 'flex';
         }
 
-        // Allow hitting "Enter" to login
-        document.getElementById('password').addEventListener('keypress', function(e) {
+        // Allow hitting "Enter" to login (with safety check)
+        document.getElementById('password')?.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') login();
         });
 
-        // LOGOUT SYSTEM
         function logout() {
             localStorage.removeItem('currentUser');
-            location.reload(); // Refresh page to clear state
+            location.reload(); 
         }
 
-        // 2. PAGE NAVIGATION
         function switchPage(pageId, navElement = null) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
-            document.getElementById(pageId).classList.add('active-page');
+            document.getElementById(pageId)?.classList.add('active-page');
             
             if(navElement) {
                 document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
@@ -392,30 +404,33 @@
             window.scrollTo(0,0);
         }
 
-        // 3. OPEN SPECIFIC CATEGORY
         function openCategory(catName) {
             currentCategory = catName;
-            document.getElementById('cat-title').innerText = catName + " Products";
+            let catTitle = document.getElementById('cat-title');
+            if(catTitle) catTitle.innerText = catName + " Products";
             switchPage('category-view');
         }
 
-        // 4. DYNAMIC IMAGE UPLOAD PREVIEW
         function previewImage(event, previewId) {
             let reader = new FileReader();
             reader.onload = function() {
                 let output = document.getElementById(previewId);
-                output.src = reader.result;
-                output.style.display = 'block';
+                if(output) {
+                    output.src = reader.result;
+                    output.style.display = 'block';
+                }
             }
             if(event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
         }
 
-        // 5. POSTING LOGIC
         function postAd(targetPanelId, inputId, previewId) {
-            let desc = escapeHTML(document.getElementById(inputId).value.trim());
+            let inputEl = document.getElementById(inputId);
             let imgElement = document.getElementById(previewId);
+            if(!inputEl || !imgElement) return;
+
+            let desc = escapeHTML(inputEl.value.trim());
             let uploadedImageSrc = imgElement.src;
 
             if (desc === "" && imgElement.style.display !== 'block') {
@@ -423,11 +438,4 @@
                 return;
             }
 
-            let newPost = document.createElement('div');
-            newPost.className = 'post';
-            
-            let tag = targetPanelId === 'cat-feed-panel' ? `<span style="color:#888; font-size: 12px;"> in [${currentCategory}]</span>` : '';
-            let postContent = `<div style="color: var(--neon-purple); font-weight: bold;">@${currentUser}${tag}</div><div style="margin-top:5px;">${desc}</div>`;
-            
-            if(imgElement.style.display === 'block') {
-                postContent += `<img src="${uploadedI
+            let newPost = document.createEleme
