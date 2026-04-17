@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Market Connect</title>
     <style>
-        /* FUTURISTIC CSS */
+        /* FUTURISTIC CSS & DYNAMIC THEMES */
         :root {
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
@@ -13,9 +13,12 @@
             --glass-bg: rgba(20, 20, 30, 0.85);
         }
 
+        /* NEW: Animated Moving Background & Grid */
         body {
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050509 100%);
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
             color: white;
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
@@ -24,29 +27,74 @@
             padding-bottom: 80px;
         }
 
+        /* NEW: Holographic Scrolling Grid Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(40px); }
+        }
+
         header {
             text-align: center;
             padding: 15px;
             border-bottom: 1px solid var(--neon-blue);
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             background: rgba(5, 5, 9, 0.95);
             z-index: 100;
+            transition: border-color 0.5s;
         }
 
-        h1 { margin: 0; font-size: 22px; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        /* NEW: Pulsing Glow Animation for Titles */
+        h1 { 
+            margin: 0; font-size: 22px; color: var(--neon-blue); 
+            animation: pulseGlow 2s infinite alternate;
+            transition: color 0.5s;
+        }
 
-        .page { display: none; padding: 15px; gap: 20px; flex-direction: column; animation: fadeIn 0.3s; }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 5px var(--neon-blue); }
+            100% { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-purple); }
+        }
+
+        /* NEW: Slide-Up Page Transition */
+        .page { display: none; padding: 15px; gap: 20px; flex-direction: column; animation: slideUp 0.4s cubic-bezier(0.1, 0.9, 0.2, 1); }
         .active-page { display: flex; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(30px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
 
         .panel {
             background: var(--glass-bg);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .panel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
         }
 
         input, textarea {
@@ -59,43 +107,58 @@
             border-radius: 5px;
             box-sizing: border-box;
             font-family: inherit;
+            transition: border-color 0.5s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--neon-blue);
         }
 
         button {
             width: 100%;
             padding: 12px;
             margin-top: 15px;
-            background: rgba(0, 243, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
             color: var(--neon-blue);
             border: 2px solid var(--neon-blue);
             border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
+            transition: all 0.3s;
         }
 
-        button:active { background: var(--neon-blue); color: black; }
+        button:hover { background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 15px var(--neon-blue); }
+        button:active { background: var(--neon-blue); color: black; transform: scale(0.98); }
 
         /* Posts */
-        .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; }
+        .post { background: rgba(0, 0, 0, 0.8); border-left: 4px solid var(--neon-blue); padding: 15px; margin-top: 15px; border-radius: 5px; word-wrap: break-word; transition: border-color 0.5s;}
         .post-img { max-width: 100%; border-radius: 5px; margin-top: 10px; display: none; }
 
         /* File Upload */
         .upload-btn {
-            background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; display: block;
+            background: transparent; border: 1px dashed var(--neon-purple); color: var(--neon-purple); margin-top: 10px; padding: 10px; text-align: center; border-radius: 5px; cursor: pointer; display: block; transition: all 0.3s;
         }
+        .upload-btn:hover { background: rgba(255,255,255,0.05); text-shadow: 0 0 8px var(--neon-purple); }
 
         /* Bottom Nav */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 15, 0.95); border-top: 1px solid var(--neon-purple); display: none; justify-content: space-around; padding: 10px 0; z-index: 1000;
+            transition: border-color 0.5s;
         }
-        .nav-item { color: #888; text-align: center; font-size: 12px; cursor: pointer; }
-        .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
+        .nav-item { color: #888; text-align: center; font-size: 11px; cursor: pointer; transition: all 0.3s; flex: 1; }
+        .nav-item.active { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); transform: translateY(-3px); }
         .nav-icon { font-size: 20px; display: block; margin-bottom: 3px; }
 
         /* Grid */
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; }
+        .market-category { background: rgba(0,0,0,0.5); border: 1px solid var(--neon-purple); padding: 20px 10px; text-align: center; border-radius: 10px; color: var(--neon-purple); cursor: pointer; transition: all 0.3s;}
+        .market-category:hover { background: rgba(255,255,255,0.05); transform: scale(1.05); box-shadow: 0 0 15px var(--neon-purple); }
+
+        /* NEW: Theme Selector Grid */
+        .theme-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .theme-btn { padding: 10px; border-radius: 5px; cursor: pointer; text-align: center; font-weight: bold; border: 1px solid #555; }
     </style>
 </head>
 <body>
@@ -104,7 +167,7 @@
         <h1>MARKET CONNECT</h1>
     </header>
 
-    <!-- AUTHENTICATION PAGE (LOGIN/REGISTER) -->
+    <!-- AUTHENTICATION PAGE -->
     <div id="auth" class="page active-page">
         <div class="panel" style="text-align: center; margin-top: 20px;">
             <h2>SYSTEM LOGIN</h2>
@@ -118,16 +181,14 @@
     <!-- MAIN FEED -->
     <div id="feed" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Global Broadcast</h2>
+            <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-blue);">Global Broadcast</h2>
             <textarea id="biz-desc" rows="3" placeholder="What are you promoting today?"></textarea>
             
-            <!-- Hidden File Input -->
-            <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="previewImage(event)">
-            <!-- Custom Upload Button -->
+            <input type="file" id="file-input" accept="image/*" style="display: none;" onchange="previewImage(event, 'image-preview')">
             <label for="file-input" class="upload-btn">📸 Attach Image/File</label>
             <img id="image-preview" class="post-img" src="">
 
-            <button onclick="postAd('feed-panel')">TRANSMIT</button>
+            <button onclick="postAd('feed-panel', 'biz-desc', 'image-preview')">TRANSMIT</button>
         </div>
         <div class="panel" id="feed-panel">
             <h2 style="margin-top: 0; font-size: 18px;">Timeline</h2>
@@ -135,15 +196,40 @@
         </div>
     </div>
 
+    <!-- NEW: EXPLORE PAGE -->
+    <div id="explore" class="page">
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-purple);">Network Trending</h2>
+            <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 5px; border-left: 3px solid var(--neon-blue); margin-bottom: 10px;">
+                <span style="color:var(--neon-blue);">#1 Trending:</span> Cyber-Implants 2088 🚀
+            </div>
+            <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 5px; border-left: 3px solid var(--neon-purple); margin-bottom: 10px;">
+                <span style="color:var(--neon-purple);">#2 Trending:</span> Neon Threads Fashion 👗
+            </div>
+            <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 5px; border-left: 3px solid var(--neon-blue);">
+                <span style="color:var(--neon-blue);">#3 Trending:</span> AI Code Assistants 💻
+            </div>
+        </div>
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px;">Global Stats</h2>
+            <p>Active Users: <span style="color: #0ff;">1,042,993</span></p>
+            <p>Market Volume: <span style="color: #0ff;">$4.2B Credits</span></p>
+            <p>Network Status: <span style="color: #0f0;">ONLINE & SECURE</span></p>
+        </div>
+    </div>
+
     <!-- MARKETPLACE CATEGORIES -->
     <div id="market" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Select Sector</h2>
+            <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-blue);">Select Sector</h2>
             <div class="market-grid">
                 <div class="market-category" onclick="openCategory('Tech & Web')">💻 Tech & Web</div>
                 <div class="market-category" onclick="openCategory('Fashion')">👕 Fashion</div>
                 <div class="market-category" onclick="openCategory('Design')">🎨 Design</div>
                 <div class="market-category" onclick="openCategory('Services')">💼 Services</div>
+                <!-- Extra categories to show off scrolling -->
+                <div class="market-category" onclick="openCategory('Vehicles')">🚀 Vehicles</div>
+                <div class="market-category" onclick="openCategory('Real Estate')">🏙️ Real Estate</div>
             </div>
         </div>
     </div>
@@ -152,9 +238,14 @@
     <div id="category-view" class="page">
         <div class="panel">
             <button onclick="switchPage('market')" style="margin-top:0; padding: 5px; width: 60px; border-color: #888; color: #888;">← Back</button>
-            <h2 id="cat-title" style="color: var(--neon-purple);">Category</h2>
+            <h2 id="cat-title" style="color: var(--neon-purple); margin-top:15px;">Category</h2>
             <textarea id="cat-desc" rows="2" placeholder="Post product in this category..."></textarea>
-            <button onclick="postAd('cat-feed-panel', 'cat-desc')">POST PRODUCT</button>
+            
+            <input type="file" id="cat-file-input" accept="image/*" style="display: none;" onchange="previewImage(event, 'cat-image-preview')">
+            <label for="cat-file-input" class="upload-btn">📸 Attach Product Image</label>
+            <img id="cat-image-preview" class="post-img" src="">
+
+            <button onclick="postAd('cat-feed-panel', 'cat-desc', 'cat-image-preview')">POST PRODUCT</button>
         </div>
         <div class="panel" id="cat-feed-panel">
             <h2 style="margin-top: 0; font-size: 18px;">Category Listings</h2>
@@ -164,9 +255,9 @@
     <!-- MESSAGES -->
     <div id="messages" class="page">
         <div class="panel">
-            <h2 style="margin-top: 0; font-size: 18px;">Global Chat Room</h2>
-            <div id="chat-box" style="height: 200px; overflow-y: auto; background: #000; padding: 10px; border: 1px solid #333; margin-bottom: 10px;">
-                <div style="color: var(--neon-blue);">[System]: Welcome to Global Chat.</div>
+            <h2 style="margin-top: 0; font-size: 18px; color: var(--neon-blue);">Global Chat Room</h2>
+            <div id="chat-box" style="height: 300px; overflow-y: auto; background: rgba(0,0,0,0.7); padding: 10px; border: 1px solid var(--neon-purple); margin-bottom: 10px; border-radius: 5px;">
+                <div style="color: var(--neon-blue);">[System]: Welcome to Global Chat. Transmission encrypted.</div>
             </div>
             <div style="display: flex; gap: 10px;">
                 <input type="text" id="chat-msg" placeholder="Type a message..." style="margin-top: 0;">
@@ -175,10 +266,31 @@
         </div>
     </div>
 
-    <!-- BOTTOM NAV -->
+    <!-- NEW: PROFILE & THEMES PAGE -->
+    <div id="profile" class="page">
+        <div class="panel" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #333; border-radius: 50%; margin: 0 auto; border: 3px solid var(--neon-blue); line-height: 80px; font-size: 30px;">👤</div>
+            <h2 id="profile-name" style="color: var(--neon-blue);">@User</h2>
+            <p style="color: #888; font-size: 14px;">Network Operative</p>
+        </div>
+        <div class="panel">
+            <h2 style="margin-top: 0; font-size: 18px;">System Themes</h2>
+            <div class="theme-grid">
+                <div class="theme-btn" style="background: #00f3ff22; color: #00f3ff; border-color: #00f3ff;" onclick="setTheme('#00f3ff', '#bc13fe')">Cyberpunk</div>
+                <div class="theme-btn" style="background: #0f02; color: #0f0; border-color: #0f0;" onclick="setTheme('#00ff00', '#006600')">Matrix Green</div>
+                <div class="theme-btn" style="background: #ff00ff22; color: #ff00ff; border-color: #ff00ff;" onclick="setTheme('#ff00ff', '#00ffff')">Synthwave</div>
+                <div class="theme-btn" style="background: #ff880022; color: #ff8800; border-color: #ff8800;" onclick="setTheme('#ff8800', '#ff0000')">Solar Flare</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV (UPDATED WITH NEW PAGES) -->
     <nav class="bottom-nav" id="nav-bar">
         <div class="nav-item active" onclick="switchPage('feed', this)">
             <span class="nav-icon">🌐</span> Feed
+        </div>
+        <div class="nav-item" onclick="switchPage('explore', this)">
+            <span class="nav-icon">🔥</span> Explore
         </div>
         <div class="nav-item" onclick="switchPage('market', this)">
             <span class="nav-icon">🏬</span> Market
@@ -186,30 +298,86 @@
         <div class="nav-item" onclick="switchPage('messages', this)">
             <span class="nav-icon">💬</span> Chat
         </div>
+        <div class="nav-item" onclick="switchPage('profile', this)">
+            <span class="nav-icon">👤</span> Profile
+        </div>
+        <div class="nav-item" onclick="logout()">
+            <span class="nav-icon">🚪</span> Exit
+        </div>
     </nav>
 
     <!-- JAVASCRIPT -->
     <script>
         let currentUser = "";
-        let uploadedImageSrc = "";
+        let currentCategory = ""; 
+
+        // HELPER: Prevent XSS by sanitizing text
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    "'": '&#39;',
+                    '"': '&quot;'
+                }[tag]));
+        }
+
+        // NEW: Apply Theme Function
+        function setTheme(primaryColor, secondaryColor) {
+            document.documentElement.style.setProperty('--neon-blue', primaryColor);
+            document.documentElement.style.setProperty('--neon-purple', secondaryColor);
+            localStorage.setItem('theme-primary', primaryColor);
+            localStorage.setItem('theme-secondary', secondaryColor);
+        }
+
+        // INIT: Check if user is already logged in & load saved data
+        window.onload = function() {
+            // Load saved theme
+            if(localStorage.getItem('theme-primary')) {
+                setTheme(localStorage.getItem('theme-primary'), localStorage.getItem('theme-secondary'));
+            }
+
+            if(localStorage.getItem('currentUser')) {
+                currentUser = localStorage.getItem('currentUser');
+                document.getElementById('profile-name').innerText = "@" + currentUser; // Set profile name
+                document.getElementById('auth').classList.remove('active-page');
+                document.getElementById('feed').classList.add('active-page');
+                document.getElementById('nav-bar').style.display = 'flex';
+            }
+            
+            // Load saved posts and chats
+            if(localStorage.getItem('feedPosts')) document.getElementById('feed-panel').innerHTML = localStorage.getItem('feedPosts');
+            if(localStorage.getItem('catPosts')) document.getElementById('cat-feed-panel').innerHTML = localStorage.getItem('catPosts');
+            if(localStorage.getItem('chatMsgs')) document.getElementById('chat-box').innerHTML = localStorage.getItem('chatMsgs');
+        }
 
         // 1. LOGIN SYSTEM
         function login() {
-            let user = document.getElementById('username').value;
-            let pass = document.getElementById('password').value;
-            
+            let user = document.getElementById('username').value.trim();
             if(user.length < 3) {
                 alert("Username must be at least 3 letters.");
                 return;
             }
             
-            // Save user temporarily
-            currentUser = user;
+            currentUser = escapeHTML(user);
+            localStorage.setItem('currentUser', currentUser); // Save User
+            document.getElementById('profile-name').innerText = "@" + currentUser; // Set profile name
             
-            // Hide Auth, Show Feed and Nav
             document.getElementById('auth').classList.remove('active-page');
             document.getElementById('feed').classList.add('active-page');
             document.getElementById('nav-bar').style.display = 'flex';
+        }
+
+        // Allow hitting "Enter" to login
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') login();
+        });
+
+        // LOGOUT SYSTEM
+        function logout() {
+            localStorage.removeItem('currentUser');
+            location.reload(); // Refresh page to clear state
         }
 
         // 2. PAGE NAVIGATION
@@ -226,27 +394,31 @@
 
         // 3. OPEN SPECIFIC CATEGORY
         function openCategory(catName) {
+            currentCategory = catName;
             document.getElementById('cat-title').innerText = catName + " Products";
             switchPage('category-view');
         }
 
-        // 4. IMAGE UPLOAD PREVIEW
-        function previewImage(event) {
+        // 4. DYNAMIC IMAGE UPLOAD PREVIEW
+        function previewImage(event, previewId) {
             let reader = new FileReader();
             reader.onload = function() {
-                let output = document.getElementById('image-preview');
+                let output = document.getElementById(previewId);
                 output.src = reader.result;
                 output.style.display = 'block';
-                uploadedImageSrc = reader.result; // Save for posting
             }
-            reader.readAsDataURL(event.target.files[0]);
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
         }
 
         // 5. POSTING LOGIC
-        function postAd(targetPanelId, inputId = 'biz-desc') {
-            let desc = document.getElementById(inputId).value;
+        function postAd(targetPanelId, inputId, previewId) {
+            let desc = escapeHTML(document.getElementById(inputId).value.trim());
+            let imgElement = document.getElementById(previewId);
+            let uploadedImageSrc = imgElement.src;
 
-            if (desc === "" && uploadedImageSrc === "") {
+            if (desc === "" && imgElement.style.display !== 'block') {
                 alert("Please write something or attach an image.");
                 return;
             }
@@ -254,36 +426,8 @@
             let newPost = document.createElement('div');
             newPost.className = 'post';
             
-            // Build the post HTML
-            let postContent = `<div style="color: var(--neon-purple); font-weight: bold;">@${currentUser}</div><div>${desc}</div>`;
+            let tag = targetPanelId === 'cat-feed-panel' ? `<span style="color:#888; font-size: 12px;"> in [${currentCategory}]</span>` : '';
+            let postContent = `<div style="color: var(--neon-purple); font-weight: bold;">@${currentUser}${tag}</div><div style="margin-top:5px;">${desc}</div>`;
             
-            if(uploadedImageSrc !== "") {
-                postContent += `<img src="${uploadedImageSrc}" style="max-width: 100%; border-radius: 5px; margin-top: 10px;">`;
-            }
-
-            newPost.innerHTML = postContent;
-
-            let panel = document.getElementById(targetPanelId);
-            panel.insertBefore(newPost, panel.children[1]); 
-
-            // Clear inputs
-            document.getElementById(inputId).value = '';
-            document.getElementById('image-preview').style.display = 'none';
-            document.getElementById('image-preview').src = '';
-            uploadedImageSrc = "";
-        }
-
-        // 6. CHAT LOGIC
-        function sendChat() {
-            let msg = document.getElementById('chat-msg').value;
-            if(msg === "") return;
-
-            let chatBox = document.getElementById('chat-box');
-            chatBox.innerHTML += `<div style="margin-top: 5px;"><span style="color: var(--neon-purple); font-weight:bold;">${currentUser}:</span> ${msg}</div>`;
-            
-            document.getElementById('chat-msg').value = '';
-            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to bottom
-        }
-    </script>
-</body>
-    </html>
+            if(imgElement.style.display === 'block') {
+                postContent += `<img src="${uploadedI
